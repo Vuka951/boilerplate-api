@@ -9,16 +9,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-
 app.post('/api/auth', function(req, res) {
   res.status(400).json({errors: {global: 'Invalid Info'}});
 });
-
 
 app.get('/*', (req, res) =>{
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(8080, () => console.log('Running for my life on :8080'));
-
-
