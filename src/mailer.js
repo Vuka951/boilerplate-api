@@ -24,3 +24,15 @@ export function sendConformationEmail(user) {
   };
   transport.sendMail(email);
 }
+
+export function sendResetPasswordEmail(user) {
+  const transport = setup();
+  const email = {
+    from,
+    to: user.email,
+    subject: 'Reset Password',
+    text: ` To reaset the password go to this link .${user.generateResetPasswordURL()}
+        `,
+  };
+  transport.sendMail(email);
+}

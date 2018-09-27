@@ -25,12 +25,22 @@ schema.methods.setConformationToken = function setConformationToken() {
 schema.methods.generateConfirmationURL = function generateConfirmationURL() {
   return `${process.env.HOST}/confirmation/${this.conformationToken}`;
 };
+schema.methods.generateResetPasswordURL = function generateResetPasswordURL() {
+  return `${process.env.HOST}/resetting_password/${this.generateResetPasswordToken()}`;
+};
 
 schema.methods.generateJWT = function generateJWT() {
   return jwt.sign({
     email: this.email,
     confirmed: this.confirmed,
   }, process.env.JWT_SECRET);
+};
+
+schema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
+  return jwt.sign({
+    _id: this._id,
+  }, process.env.JWT_SECRET,
+  {expiresIn: '1h'});
 };
 
 schema.methods.toAuthJSON = function toAuthJSON() {
